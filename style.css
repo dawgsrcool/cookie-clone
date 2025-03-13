@@ -1,76 +1,79 @@
 body {
   font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
+}
+
+.game-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 h1 {
-  margin-bottom: 20px;
+  color: #333;
+}
+
+#cookie-count {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+#cookie-container {
+  margin: 20px 0;
 }
 
 #cookie {
-  font-size: 100px;
+  font-size: 10rem;
   cursor: pointer;
-  user-select: none;
   transition: transform 0.1s;
 }
 
 #cookie:active {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 
-#score {
-  font-size: 24px;
-  margin: 20px 0;
-}
-
-#upgrades, #achievements {
+#upgrades, #emoji-upgrades, #cursor-upgrades {
   margin-top: 20px;
-  text-align: center;
 }
 
-button {
-  font-size: 16px;
+#upgrades button, #emoji-upgrades button, #cursor-upgrades button {
   padding: 10px 20px;
+  font-size: 1.2rem;
   margin: 5px;
-  cursor: pointer;
-  border: none;
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+#upgrades button:hover, #emoji-upgrades button:hover, #cursor-upgrades button:hover {
+  background-color: #218838;
 }
 
-#achievements-list {
-  list-style-type: none;
-  padding: 0;
+#achievements, #emojis {
+  margin-top: 20px;
+  text-align: left;
 }
 
-#achievements-list li {
-  font-size: 18px;
-  margin: 5px 0;
-  padding: 5px;
-  background-color: #e0e0e0;
-  border-radius: 5px;
+#achievements h2, #emojis h2 {
+  font-size: 1.5rem;
+  color: #333;
 }
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+#achievements-list, #emoji-list {
+  font-size: 1.2rem;
+  color: #555;
 }
 
-.cookie-float {
-  position: absolute;
-  font-size: 20px;
-  animation: float 1s ease-in-out;
+.emoji-item {
+  font-size: 2rem;
+  margin: 5px;
 }

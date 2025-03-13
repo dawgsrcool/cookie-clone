@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Clicker Clone</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Clicker Clone</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="game-container">
     <h1>Cookie Clicker Clone</h1>
-    <div id="cookie" onclick="clickCookie()">🍪</div>
-    <div id="score">Cookies: 0</div>
+    <div id="cookie-count">Cookies: 0</div>
+    <div id="cookie-container">
+      <div id="cookie">🍪</div>
+    </div>
     <div id="upgrades">
-        <h2>Upgrades</h2>
-        <button id="upgrade-click" onclick="buyUpgrade('click')">Upgrade Click (Cost: 10)</button>
-        <button id="upgrade-auto" onclick="buyUpgrade('auto')">Buy Auto-Clicker (Cost: 50)</button>
-        <button id="upgrade-grandma" onclick="buyUpgrade('grandma')">Buy Grandma (Cost: 100)</button>
-        <button id="upgrade-factory" onclick="buyUpgrade('factory')">Buy Factory (Cost: 500)</button>
+      <h2>Upgrades</h2>
+      <button id="grandma-upgrade">👵 Buy Grandma (10 cookies)</button>
+      <button id="cat-upgrade">🐱 Buy Cat (50 cookies)</button>
+      <button id="factory-upgrade">🏭 Buy Factory (100 cookies)</button>
+    </div>
+    <div id="emoji-upgrades">
+      <h2>Cookie Emojis</h2>
+      <button id="emoji-cookie-1">🍪 Buy Classic Cookie (20 cookies)</button>
+      <button id="emoji-cookie-2">🍩 Buy Donut (50 cookies)</button>
+      <button id="emoji-cookie-3">🍕 Buy Pizza (100 cookies)</button>
+    </div>
+    <div id="cursor-upgrades">
+      <h2>Cursor Upgrades</h2>
+      <button id="cursor-1">🖱️ Buy Basic Cursor (30 cookies)</button>
+      <button id="cursor-2">🖲️ Buy Fancy Cursor (100 cookies)</button>
+      <button id="cursor-3">👆 Buy Super Cursor (500 cookies)</button>
     </div>
     <div id="achievements">
-        <h2>Achievements</h2>
-        <ul id="achievements-list"></ul>
+      <h2>Achievements</h2>
+      <div id="achievements-list"></div>
     </div>
-    <script src="script.js"></script>
+    <div id="emojis">
+      <h2>Your Emojis</h2>
+      <div id="emoji-list"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,111 +1,137 @@
 let cookies = 0;
-let cookiesPerClick = 1;
-let autoClickers = 0;
 let grandmas = 0;
+let cats = 0;
 let factories = 0;
+let cookiesPerSecond = 0;
+let cookiesPerClick = 1;
 
-let upgradeClickCost = 10;
-let autoClickerCost = 50;
-let grandmaCost = 100;
-let factoryCost = 500;
+const achievements = [
+  { name: "First Cookie!", condition: (cookies) => cookies >= 1, unlocked: false },
+  { name: "10 Cookies!", condition: (cookies) => cookies >= 10, unlocked: false },
+  { name: "100 Cookies!", condition: (cookies) => cookies >= 100, unlocked: false },
+  { name: "First Grandma!", condition: (grandmas) => grandmas >= 1, unlocked: false },
+  { name: "First Cat!", condition: (cats) => cats >= 1, unlocked: false },
+  { name: "First Factory!", condition: (factories) => factories >= 1, unlocked: false },
+  { name: "First Emoji Upgrade!", condition: (cookies) => cookies >= 20, unlocked: false },
+  { name: "First Cursor Upgrade!", condition: (cookies) => cookies >= 30, unlocked: false },
+];
 
-let achievements = {
-    "First Click": { earned: false, condition: (cookies) => cookies >= 1 },
-    "100 Cookies": { earned: false, condition: (cookies) => cookies >= 100 },
-    "500 Cookies": { earned: false, condition: (cookies) => cookies >= 500 },
-    "Auto-Clicker Owner": { earned: false, condition: () => autoClickers >= 1 },
-    "Grandma Lover": { earned: false, condition: () => grandmas >= 1 },
-    "Factory Tycoon": { earned: false, condition: () => factories >= 1 },
-};
+document.getElementById("cookie").addEventListener("click", function () {
+  cookies += cookiesPerClick;
+  updateGame();
+});
 
-// Update the score display
-function updateScore() {
-    document.getElementById("score").textContent = `Cookies: ${cookies}`;
-    checkAchievements();
+document.getElementById("grandma-upgrade").addEventListener("click", function () {
+  if (cookies >= 10) {
+    cookies -= 10;
+    grandmas++;
+    cookiesPerSecond += 1;
+    updateGame();
+    addEmoji("👵");
+  }
+});
+
+document.getElementById("cat-upgrade").addEventListener("click", function () {
+  if (cookies >= 50) {
+    cookies -= 50;
+    cats++;
+    cookiesPerSecond += 5;
+    updateGame();
+    addEmoji("🐱");
+  }
+});
+
+document.getElementById("factory-upgrade").addEventListener("click", function () {
+  if (cookies >= 100) {
+    cookies -= 100;
+    factories++;
+    cookiesPerSecond += 10;
+    updateGame();
+    addEmoji("🏭");
+  }
+});
+
+document.getElementById("emoji-cookie-1").addEventListener("click", function () {
+  if (cookies >= 20) {
+    cookies -= 20;
+    document.getElementById("cookie").textContent = "🍪";
+    updateGame();
+    addEmoji("🍪");
+  }
+});
+
+document.getElementById("emoji-cookie-2").addEventListener("click", function () {
+  if (cookies >= 50) {
+    cookies -= 50;
+    document.getElementById("cookie").textContent = "🍩";
+    updateGame();
+    addEmoji("🍩");
+  }
+});
+
+document.getElementById("emoji-cookie-3").addEventListener("click", function () {
+  if (cookies >= 100) {
+    cookies -= 100;
+    document.getElementById("cookie").textContent = "🍕";
+    updateGame();
+    addEmoji("🍕");
+  }
+});
+
+document.getElementById("cursor-1").addEventListener("click", function () {
+  if (cookies >= 30) {
+    cookies -= 30;
+    cookiesPerClick += 1;
+    updateGame();
+    addEmoji("🖱️");
+  }
+});
+
+document.getElementById("cursor-2").addEventListener("click", function () {
+  if (cookies >= 100) {
+    cookies -= 100;
+    cookiesPerClick += 2;
+    updateGame();
+    addEmoji("🖲️");
+  }
+});
+
+document.getElementById("cursor-3").addEventListener("click", function () {
+  if (cookies >= 500) {
+    cookies -= 500;
+    cookiesPerClick += 5;
+    updateGame();
+    addEmoji("👆");
+  }
+});
+
+function updateGame() {
+  document.getElementById("cookie-count").textContent = `Cookies: ${cookies}`;
+  checkAchievements();
 }
 
-// Handle cookie clicks
-function clickCookie() {
-    cookies += cookiesPerClick;
-    updateScore();
-    createFloatingCookie();
-}
-
-// Create a floating cookie animation
-function createFloatingCookie() {
-    const cookie = document.createElement("div");
-    cookie.textContent = "🍪";
-    cookie.classList.add("cookie-float");
-    cookie.style.left = `${Math.random() * 80 + 10}%`;
-    document.body.appendChild(cookie);
-    setTimeout(() => cookie.remove(), 1000);
-}
-
-// Buy upgrades
-function buyUpgrade(type) {
-    let cost = 0;
-    switch (type) {
-        case "click":
-            cost = upgradeClickCost;
-            if (cookies >= cost) {
-                cookies -= cost;
-                cookiesPerClick += 1;
-                upgradeClickCost *= 2;
-                document.getElementById("upgrade-click").textContent = `Upgrade Click (Cost: ${upgradeClickCost})`;
-            }
-            break;
-        case "auto":
-            cost = autoClickerCost;
-            if (cookies >= cost) {
-                cookies -= cost;
-                autoClickers += 1;
-                autoClickerCost *= 2;
-                document.getElementById("upgrade-auto").textContent = `Buy Auto-Clicker (Cost: ${autoClickerCost})`;
-            }
-            break;
-        case "grandma":
-            cost = grandmaCost;
-            if (cookies >= cost) {
-                cookies -= cost;
-                grandmas += 1;
-                grandmaCost *= 2;
-                document.getElementById("upgrade-grandma").textContent = `Buy Grandma (Cost: ${grandmaCost})`;
-            }
-            break;
-        case "factory":
-            cost = factoryCost;
-            if (cookies >= cost) {
-                cookies -= cost;
-                factories += 1;
-                factoryCost *= 2;
-                document.getElementById("upgrade-factory").textContent = `Buy Factory (Cost: ${factoryCost})`;
-            }
-            break;
-    }
-    updateScore();
-}
-
-// Auto-clicker and passive income logic
-setInterval(() => {
-    cookies += autoClickers; // Auto-clickers generate 1 cookie per second
-    cookies += grandmas * 5; // Grandmas generate 5 cookies per second
-    cookies += factories * 20; // Factories generate 20 cookies per second
-    updateScore();
-}, 1000);
-
-// Check for achievements
 function checkAchievements() {
-    const achievementsList = document.getElementById("achievements-list");
-    achievementsList.innerHTML = "";
-    for (const [name, achievement] of Object.entries(achievements)) {
-        if (!achievement.earned && achievement.condition(cookies)) {
-            achievement.earned = true;
-            const li = document.createElement("li");
-            li.textContent = `Achievement Unlocked: ${name}`;
-            achievementsList.appendChild(li);
-        }
+  const achievementsList = document.getElementById("achievements-list");
+  achievementsList.innerHTML = "";
+
+  achievements.forEach((achievement) => {
+    if (!achievement.unlocked && achievement.condition(cookies, grandmas, cats, factories)) {
+      achievement.unlocked = true;
+      achievementsList.innerHTML += `<div>🎉 ${achievement.name}</div>`;
     }
+  });
 }
 
-// Initialize the game
-updateScore();
+function addEmoji(emoji) {
+  const emojiList = document.getElementById("emoji-list");
+  const emojiItem = document.createElement("div");
+  emojiItem.classList.add("emoji-item");
+  emojiItem.textContent = emoji;
+  emojiList.appendChild(emojiItem);
+}
+
+// Auto-generate cookies every second
+setInterval(function () {
+  cookies += cookiesPerSecond;
+  updateGame();
+}, 1000);
